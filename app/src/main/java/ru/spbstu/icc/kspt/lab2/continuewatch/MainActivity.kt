@@ -11,15 +11,13 @@ class MainActivity : AppCompatActivity() {
     private var flag = true
     private val sharedPref by lazy { getPreferences(Context.MODE_PRIVATE) }
     // (4) Сделал приватным
-    // (5) Добавил строковые ресурсы для activity
     private var backgroundThread = Thread {
         while (true) {
             // (2) Поменял порядок обновления строки и сна потока, поскольку счетчик опаздывал на 1 секунду
             if (flag) {
                 textSecondsElapsed.post {
                     // (1) Лучше использовать строковые ресурсы, они поддерживают форматирование строк
-
-                    textSecondsElapsed.text = getString(R.string.SecondsLabel, ++secondsElapsed)
+                    textSecondsElapsed.text = getString(R.string.SecondsLabel, secondsElapsed++)
                 }
             }
             Thread.sleep(1000)
