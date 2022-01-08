@@ -10,20 +10,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textSecondsElapsed: TextView
     private var flag = true
     private val sharedPref by lazy { getPreferences(Context.MODE_PRIVATE) }
-    // (4) Сделал приватным
+    // (3) Сделал приватным
     private var backgroundThread = Thread {
         while (true) {
-            // (2) Поменял порядок обновления строки и сна потока, поскольку счетчик опаздывал на 1 секунду
+            Thread.sleep(1000)
             if (flag) {
                 textSecondsElapsed.post {
                     // (1) Лучше использовать строковые ресурсы, они поддерживают форматирование строк
                     textSecondsElapsed.text = getString(R.string.SecondsLabel, secondsElapsed++)
                 }
             }
-            Thread.sleep(1000)
+
         }
     }
-    // (3) Приложение продолжает считать время в фоне
+    // (2) Приложение продолжает считать время в фоне
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
